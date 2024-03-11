@@ -1,5 +1,6 @@
 package com.olawale.criteriasearch.controller;
 
+import com.olawale.criteriasearch.dto.request.AddResidentReq;
 import com.olawale.criteriasearch.entity.Resident;
 import com.olawale.criteriasearch.service.ResidentService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class ResidentController {
     private final ResidentService service;
 
     @PostMapping
-    public ResponseEntity<String> addResident(@RequestBody Resident resident){
+    public ResponseEntity<String> addResident(@RequestBody AddResidentReq resident){
         return new ResponseEntity<>(service.addResident(resident), HttpStatus.CREATED);
     }
 }

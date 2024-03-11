@@ -1,5 +1,6 @@
 package com.olawale.criteriasearch.service.impl;
 
+import com.olawale.criteriasearch.dto.request.AddResidentReq;
 import com.olawale.criteriasearch.entity.Resident;
 import com.olawale.criteriasearch.repository.ResidentRepository;
 import com.olawale.criteriasearch.service.ResidentService;
@@ -10,20 +11,21 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ResidentServiceImpl implements ResidentService {
 
-    private ResidentRepository residentRepository;
+    private final ResidentRepository residentRepository;
 
 
     @Override
-    public String addResident(Resident resident) {
-
-        Resident checkResident = residentRepository.findByEmail(resident.getEmail())
-                .orElseThrow(()-> new RuntimeException("Resident already exists with email "+ resident.getEmail()));
+    public String addResident(AddResidentReq resident) {
+        if (residentRepository.existsByEmail(resident.getEmail())){
+        throw new RuntimeException("Resident already exists with email " + resident.getEmail());
+    }
 
         Resident newResident = Resident.builder()
-                .email(checkResident.getEmail())
-                .firstName(checkResident.getFirstName())
-                .lastName(checkResident.getLastName())
-                .phone(checkResident.getPhone())
+                .email(resident.getEmail())
+                .firstName(resident.getFirstName())
+                .lastName(resident.getLastName())
+                .phone(resident.getPhone())
+                .password(resident.getPassword())
                 .build();
 
         residentRepository.save(newResident);
