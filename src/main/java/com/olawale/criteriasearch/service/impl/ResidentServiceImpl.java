@@ -1,17 +1,22 @@
 package com.olawale.criteriasearch.service.impl;
 
 import com.olawale.criteriasearch.dto.request.AddResidentReq;
+import com.olawale.criteriasearch.dto.request.SearchRequest;
 import com.olawale.criteriasearch.entity.Resident;
+import com.olawale.criteriasearch.repository.ResidentCriteriaSearchRepo;
 import com.olawale.criteriasearch.repository.ResidentRepository;
 import com.olawale.criteriasearch.service.ResidentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ResidentServiceImpl implements ResidentService {
 
     private final ResidentRepository residentRepository;
+    private final ResidentCriteriaSearchRepo searchRepo;
 
 
     @Override
@@ -31,5 +36,10 @@ public class ResidentServiceImpl implements ResidentService {
         residentRepository.save(newResident);
 
         return "New resident added successfully";
+    }
+
+    @Override
+    public List<Resident> findAllResident(SearchRequest request){
+        return searchRepo.findAll(request.getFirstname(), request.getLastname(), request.getEmail());
     }
 }
