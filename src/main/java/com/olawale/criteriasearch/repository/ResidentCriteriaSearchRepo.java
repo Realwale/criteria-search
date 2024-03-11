@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ResidentCriteriaSearchRepo {
 
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     public List<Resident> findAll(String firstname, String lastname, String email){
 
@@ -29,7 +29,9 @@ public class ResidentCriteriaSearchRepo {
 
         Predicate firstnameOrLastnamePredicate = builder.or(firstnamePredicate, lastnamePredicate);
 
-        var andEmailPredicate = query.where(builder.and(firstnameOrLastnamePredicate, emailPredicate));
+        var andEmailPredicate = builder.and(firstnameOrLastnamePredicate, emailPredicate);
+
+        query.where(andEmailPredicate);
 
         TypedQuery<Resident> residentTypedQuery = entityManager.createQuery(query);
 
