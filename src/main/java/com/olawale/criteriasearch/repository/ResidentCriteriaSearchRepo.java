@@ -1,4 +1,4 @@
-package com.olawale.criteriasearch.repository.impl;
+package com.olawale.criteriasearch.repository;
 
 import com.olawale.criteriasearch.entity.Resident;
 import jakarta.persistence.EntityManager;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class ResidentRepoImpl{
+public class ResidentCriteriaSearchRepo {
 
     private EntityManager entityManager;
 
