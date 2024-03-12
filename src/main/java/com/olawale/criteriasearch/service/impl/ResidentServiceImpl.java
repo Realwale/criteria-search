@@ -1,7 +1,6 @@
 package com.olawale.criteriasearch.service.impl;
 
 import com.olawale.criteriasearch.dto.request.AddResidentReq;
-import com.olawale.criteriasearch.dto.request.SearchRequest;
 import com.olawale.criteriasearch.entity.Resident;
 import com.olawale.criteriasearch.repository.ResidentCriteriaSearchRepo;
 import com.olawale.criteriasearch.repository.ResidentRepository;
@@ -39,7 +38,7 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
-    public List<Resident> findAllResident(SearchRequest request){
-        return searchRepo.findAll(request.getFirstname(), request.getLastname(), request.getEmail());
+    public List<Resident> findAllResident(String firstName, String lastName, String email){
+        return searchRepo.findAll(firstName, lastName, email);
     }
 }

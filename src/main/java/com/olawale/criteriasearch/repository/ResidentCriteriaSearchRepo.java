@@ -18,13 +18,13 @@ public class ResidentCriteriaSearchRepo {
 
     private final EntityManager entityManager;
 
-    public List<Resident> findAll(String firstname, String lastname, String email){
+    public List<Resident> findAll(String firstName, String lastName, String email){
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Resident> query = builder.createQuery(Resident.class);
         Root<Resident> root = query.from(Resident.class);
-        Predicate firstnamePredicate =  builder.like(root.get("firstname"), "%" + firstname +"%");
-        Predicate lastnamePredicate = builder.like(root.get("lastname"), "%" + lastname + "%");
+        Predicate firstnamePredicate =  builder.like(root.get("firstName"), "%" + firstName +"%");
+        Predicate lastnamePredicate = builder.like(root.get("lastName"), "%" + lastName + "%");
         Predicate emailPredicate = builder.like(root.get("email"), "%"+ email + "%");
 
         Predicate firstnameOrLastnamePredicate = builder.or(firstnamePredicate, lastnamePredicate);
